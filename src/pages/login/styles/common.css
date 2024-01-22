@@ -1,3 +1,7 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap");
+
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +13,7 @@ body {
 }
 
 body {
-    font-family: 'Courier New', Courier, monospace 400;
+    font-family: 'Noto Sans JP', sans-serif;
     color: #404040ff;
 }
 
@@ -54,8 +58,8 @@ a {
 }
 
 .form-item {
+    display: block;
     margin: 2rem 0;
-
 }
 
 .form-label {
@@ -70,6 +74,11 @@ a {
     padding: var(--padding);
     border: var(--border-weight) solid #00000060;
     border-radius: .25rem;
+}
+
+.form-error {
+    text-align: center;
+    color: #f04040ff;
 }
 
 .form-submit-button {

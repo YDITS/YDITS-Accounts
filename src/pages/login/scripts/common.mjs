@@ -50,8 +50,31 @@ const auth = getAuth(app);
             })
             .catch((error) => {
                 console.error(error);
-                const errorCode = error.code;
-                const errorMessage = error.message;
+                onLoginError(error.message);
             });
+    }
+
+
+    function onLoginError(errorMessage) {
+        console.debug(errorMessage)
+        const errorMessageElement = document.getElementById("loginFormErrorMessage");
+
+        switch (errorMessage) {
+            case "Firebase: Error (auth/invalid-email).":
+                errorMessageElement.innerText = "Invalid email";
+                break;
+
+            case "Firebase: Error (auth/missing-password).":
+                errorMessageElement.innerText = "Missing password";
+                break;
+
+            case "Firebase: Error (auth/invalid-login-credentials).":
+                errorMessageElement.innerText = "Invalid login credentials";
+                break;
+
+            default:
+                errorMessageElement.innerText = "Unknown error";
+                break;
+        }
     }
 })();
