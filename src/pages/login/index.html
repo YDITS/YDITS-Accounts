@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login | YDITS Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/common.css">
+    <script type="module" src="./scripts/common.mjs"></script>
+</head>
+
+<body>
+    <main class="auth-page">
+        <h1 class="page-title auth-page-title">YDITS Account</h1>
+
+        <div>
+            <form id="loginForm" class="auth-form" action="">
+                <div class="form-item">
+                    <label for="loginFormEmail" class="form-label">Email</label>
+                    <input id="loginFormEmail" class="form-input" type="email" placeholder="Email" required>
+                </div>
+
+                <div class="form-item">
+                    <label for="loginFormPassword" class="form-label">Password</label>
+                    <input id="loginFormPassword" class="form-input" type="password" placeholder="Password" required>
+                </div>
+
+                <div class="form-item">
+                    <button id="loginSubmitButton" class="button form-submit-button auth-submit-button" type="button">Login</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
