@@ -1,10 +1,24 @@
 
 # YDITS Accounts
 
-## About
+## Overview
 
-YDITS Accounts.
+YDITS Accounts Website.
+
+## Usage
+
+#### Install
+
+```
+npm install firebase
+```
+
+#### Deploy
+
+Deploy path `src/pages/`.
 
 ## LICENSE
 
-No licensed.
+**No licensed.**
+
+Copyright (c) よね/Yone
