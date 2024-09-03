@@ -1,9 +1,10 @@
-
 # YDITS Accounts
+
+[→ 日本語](./README_JP.md)
 
 ## Overview
 
-YDITS Accounts Website.
+YDITS accounts website.
 
 ## Usage
 
@@ -15,10 +16,10 @@ npm install firebase
 
 #### Deploy
 
-Deploy path `src/pages/`.
+Deploy directory `src/pages/`.
 
 ## LICENSE
 
-**No licensed.**
+No Licensed
 
-Copyright (c) よね/Yone
+Copyright (C) よね/Yone
