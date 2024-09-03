@@ -1,49 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja-JP">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sign Up | YDITS Account</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../styles/common.css" />
+        <script type="module" src="../scripts/common.mjs"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up | YDITS Account</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/common.css">
-    <script type="module" src="../scripts/common.mjs"></script>
-</head>
+    <body>
+        <main class="auth-page">
+            <h1 class="page-title auth-page-title">YDITS Account</h1>
 
-<body>
-    <main class="auth-page">
-        <h1 class="page-title auth-page-title">YDITS Account</h1>
+            <form id="loginForm" class="auth-form" action="">
+                <h2 for="loginForm" class="form-title">Sign Up</h2>
 
-        <form id="loginForm" class="auth-form" action="">
-            <h2 for="loginForm" class="form-title">Sign Up</h2>
+                <div class="form-item">
+                    <label for="loginFormEmail" class="form-label">Email</label>
+                    <input
+                        id="loginFormEmail"
+                        class="form-input"
+                        type="email"
+                        placeholder="Email"
+                        required
+                    />
+                </div>
 
-            <div class="form-item">
-                <label for="loginFormEmail" class="form-label">Email</label>
-                <input id="loginFormEmail" class="form-input" type="email" placeholder="Email" required>
+                <div class="form-item">
+                    <label for="loginFormPassword" class="form-label"
+                        >Password</label
+                    >
+                    <input
+                        id="loginFormPassword"
+                        class="form-input"
+                        type="password"
+                        placeholder="Password"
+                        required
+                    />
+                </div>
+
+                <span
+                    id="loginFormErrorMessage"
+                    class="form-item form-error"
+                ></span>
+
+                <div class="form-item">
+                    <button
+                        id="signupSubmitButton"
+                        class="button form-submit-button auth-submit-button"
+                        type="button"
+                    >
+                        Sign up
+                    </button>
+                </div>
+
+                <a href="../login/" class="link">Login</a>
+            </form>
+
+            <div class="policies">
+                <ul>
+                    <li>
+                        <a href="https://policies.ydits.net/">Policy</a>
+                    </li>
+                </ul>
             </div>
-
-            <div class="form-item">
-                <label for="loginFormPassword" class="form-label">Password</label>
-                <input id="loginFormPassword" class="form-input" type="password" placeholder="Password" required>
-            </div>
-
-            <span id="loginFormErrorMessage" class="form-item form-error"></span>
-
-            <div class="form-item">
-                <button id="signupSubmitButton" class="button form-submit-button auth-submit-button"
-                    type="button">Sign up</button>
-            </div>
-
-            <a href="../login/" class="link">Login</a>
-        </form>
-
-        <div class="policies">
-            <ul>
-                <li>
-                    <a href="https://policies.ydits.net/">Policy</a>
-                </li>
-            </ul>
-        </div>
-    </main>
-</body>
-
+        </main>
+    </body>
 </html>

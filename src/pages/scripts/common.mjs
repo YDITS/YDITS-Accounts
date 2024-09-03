@@ -1,4 +1,3 @@
-
 "use strict";
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
@@ -7,7 +6,7 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    onAuthStateChanged
+    onAuthStateChanged,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -17,7 +16,7 @@ const firebaseConfig = {
     storageBucket: "ydits-accounts.appspot.com",
     messagingSenderId: "680261956411",
     appId: "1:680261956411:web:8c8e99dbab5dfa6d1cbd1e",
-    measurementId: "G-5KJC78542S"
+    measurementId: "G-5KJC78542S",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -28,37 +27,40 @@ const auth = getAuth(app);
     console.log(
         "%cWARNING!\n%cUsing this console may allow attackers to impersonate you and steal your information using an attack called Self-XSS.Do not enter or paste code that you do not understand.",
         "font-size: 32px; color: red; background-color: yellow;",
-        "font-size: 24px;",
+        "font-size: 24px;"
     );
     console.log(
         "%c警告!\n%cこのコンソールを使用すると、攻撃者があなたになりすまし、Self-XSSと呼ばれる攻撃を使ってあなたの情報を盗み出す可能性があります。理解できないコードを入力したり、貼り付けたり絶対にしないでください。",
         "font-size: 32px; color: red; background-color: yellow;",
-        "font-size: 24px;",
+        "font-size: 24px;"
     );
 
     let loginSubmitButtomElement;
     let signupSubmitButtomElement;
     let errorMessageElement;
 
-
     document.addEventListener("DOMContentLoaded", () => initPage());
-
 
     function initPage() {
         console.log("Initializing page...");
 
         loginSubmitButtomElement = document.getElementById("loginSubmitButton");
-        signupSubmitButtomElement = document.getElementById("signupSubmitButton");
+        signupSubmitButtomElement =
+            document.getElementById("signupSubmitButton");
         errorMessageElement = document.getElementById("loginFormErrorMessage");
 
         try {
-            loginSubmitButtomElement.addEventListener("click", () => onClickLoginSubmitButton());
+            loginSubmitButtomElement.addEventListener("click", () =>
+                onClickLoginSubmitButton()
+            );
         } catch (error) {
             console.error(error);
         }
 
         try {
-            signupSubmitButtomElement.addEventListener("click", () => onClickSignupSubmitButton());
+            signupSubmitButtomElement.addEventListener("click", () =>
+                onClickSignupSubmitButton()
+            );
         } catch (error) {
             console.error(error);
         }
@@ -66,15 +68,14 @@ const auth = getAuth(app);
         console.log(
             "%cWARNING!\n%cUsing this console may allow attackers to impersonate you and steal your information using an attack called Self-XSS.Do not enter or paste code that you do not understand.",
             "font-size: 32px; color: red; background-color: yellow;",
-            "font-size: 24px; color: unset; backgroun-color: unset;",
+            "font-size: 24px; color: unset; backgroun-color: unset;"
         );
         console.log(
             "%c警告!\n%cこのコンソールを使用すると、攻撃者があなたになりすまし、Self-XSSと呼ばれる攻撃を使ってあなたの情報を盗み出す可能性があります。理解できないコードを入力したり、貼り付けたり絶対にしないでください。",
             "font-size: 32px; color: red; background-color: yellow;",
-            "font-size: 24px;",
+            "font-size: 24px;"
         );
     }
-
 
     function onClickLoginSubmitButton() {
         console.log("Clicked login button.");
@@ -82,7 +83,8 @@ const auth = getAuth(app);
         errorMessage("");
 
         const loginFormEmailElement = document.getElementById("loginFormEmail");
-        const loginFormPasswordElement = document.getElementById("loginFormPassword");
+        const loginFormPasswordElement =
+            document.getElementById("loginFormPassword");
         const email = loginFormEmailElement.value;
         const password = loginFormPasswordElement.value;
 
@@ -94,14 +96,14 @@ const auth = getAuth(app);
         login(email, password);
     }
 
-
     function onClickSignupSubmitButton() {
         console.log("Clicked signup button.");
 
         errorMessage("");
 
         const loginFormEmailElement = document.getElementById("loginFormEmail");
-        const loginFormPasswordElement = document.getElementById("loginFormPassword");
+        const loginFormPasswordElement =
+            document.getElementById("loginFormPassword");
         const email = loginFormEmailElement.value;
         const password = loginFormPasswordElement.value;
 
@@ -112,7 +114,6 @@ const auth = getAuth(app);
 
         signup(email, password);
     }
-
 
     function login(email, password) {
         let user;
@@ -128,7 +129,6 @@ const auth = getAuth(app);
             });
     }
 
-
     function signup(email, password) {
         let user;
 
@@ -143,19 +143,16 @@ const auth = getAuth(app);
             });
     }
 
-
     function emptyForm() {
         errorMessage("Enter an email and a password");
     }
-
 
     function errorMessage(text) {
         errorMessageElement.innerText = text;
     }
 
-
     function onLoginError(errorMessage) {
-        console.debug(errorMessage)
+        console.debug(errorMessage);
 
         switch (errorMessage) {
             case "Firebase: Error (auth/invalid-email).":
@@ -175,7 +172,8 @@ const auth = getAuth(app);
                 break;
 
             case "Firebase: Password should be at least 6 characters (auth/weak-password).":
-                errorMessageElement.innerText = "Password should be at least 6 characters";
+                errorMessageElement.innerText =
+                    "Password should be at least 6 characters";
                 break;
 
             default:
