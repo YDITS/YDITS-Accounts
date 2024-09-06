@@ -10,7 +10,7 @@ YDITSアカウントのウェブサイトです。
 
 1. インストール
 
-```
+```bash
 npm install firebase
 ```
 
@@ -20,6 +20,6 @@ Deploy directory `src/pages/`.
 
 ## ライセンス
 
-ライセンスなし
+ライセンスなし。
 
 Copyright (C) よね/Yone

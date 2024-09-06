@@ -8,18 +8,18 @@ YDITS accounts website.
 
 ## Usage
 
-#### Install
+1. Install
 
-```
+```bash
 npm install firebase
 ```
 
-#### Deploy
+2. Deploy
 
 Deploy directory `src/pages/`.
 
-## LICENSE
+## License
 
-No Licensed
+No licensed.
 
 Copyright (C) よね/Yone
