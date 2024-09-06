@@ -6,6 +6,8 @@
 
 YDITSアカウントのウェブサイトです。
 
+https://accounts.ydits.net/ で公開しています。
+
 ## 利用方法
 
 1. インストール

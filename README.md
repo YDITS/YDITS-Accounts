@@ -6,6 +6,8 @@
 
 YDITS accounts website.
 
+Published at https://accounts.ydits.net/ .
+
 ## Usage
 
 1. Install
