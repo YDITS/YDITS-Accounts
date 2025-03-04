@@ -1,69 +1,66 @@
 <!DOCTYPE html>
 <html lang="ja-JP">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Login | YDITS Account</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../styles/common.css" />
-        <script type="module" src="../scripts/common.mjs"></script>
-    </head>
 
-    <body>
-        <main class="auth-page">
-            <h1 class="page-title auth-page-title">YDITS Account</h1>
+<head>
+    <meta charset="UTF-8">
 
-            <form id="loginForm" class="auth-form" action="">
-                <h2 for="loginForm" class="form-title">Login</h2>
+    <!-- Meta -->
+    <title>Login | YDITS Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                <div class="form-item">
-                    <label for="loginFormEmail" class="form-label">Email</label>
-                    <input
-                        id="loginFormEmail"
-                        class="form-input"
-                        type="email"
-                        placeholder="Email"
-                        required
-                    />
-                </div>
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/common.css">
 
-                <div class="form-item">
-                    <label for="loginFormPassword" class="form-label"
-                        >Password</label
-                    >
-                    <input
-                        id="loginFormPassword"
-                        class="form-input"
-                        type="password"
-                        placeholder="Password"
-                        required
-                    />
-                </div>
+    <!-- Scripts -->
+    <script src="/scripts/common.mjs" type="module" defer></script>
 
-                <span
-                    id="loginFormErrorMessage"
-                    class="form-item form-error"
-                ></span>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCJH2VXW1J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-                <div class="form-item">
-                    <button
-                        id="loginSubmitButton"
-                        class="button form-submit-button auth-submit-button"
-                        type="button"
-                    >
-                        Login
-                    </button>
-                </div>
+        gtag('config', 'G-QCJH2VXW1J');
+    </script>
+</head>
 
-                <a href="../signup/" class="link">Create account</a>
-            </form>
+<body>
+    <main class="auth-page">
+        <h1 class="page-title auth-page-title">YDITS Account</h1>
 
-            <div class="policies">
-                <ul style="list-style: none">
-                    <li>
-                        <a href="https://policies.ydits.net/">Policy</a>
-                    </li>
-                </ul>
+        <form id="loginForm" class="auth-form" action="">
+            <h2 for="loginForm" class="form-title">Login</h2>
+
+            <div class="form-item">
+                <label for="loginFormEmail" class="form-label">Email</label>
+                <input id="loginFormEmail" class="form-input" type="email" placeholder="Email" required />
             </div>
-        </main>
-    </body>
+
+            <div class="form-item">
+                <label for="loginFormPassword" class="form-label">Password</label>
+                <input id="loginFormPassword" class="form-input" type="password" placeholder="Password" required />
+            </div>
+
+            <span id="loginFormErrorMessage" class="form-item form-error"></span>
+
+            <div class="form-item">
+                <button id="loginSubmitButton" class="button form-submit-button auth-submit-button" type="button">
+                    Login
+                </button>
+            </div>
+
+            <a href="/signup/" class="link">Create account</a>
+        </form>
+
+        <div class="policies">
+            <ul style="list-style: none">
+                <li>
+                    <a href="https://policies.ydits.net/">Policy</a>
+                </li>
+            </ul>
+        </div>
+    </main>
+</body>
+
 </html>
