@@ -1,0 +1,17 @@
+{
+    "elements": {
+        "loginSubmitButton": "#loginSubmitButton",
+        "signupSubmitButton": "#signupSubmitButton",
+        "signupWithGitHubButton": "#signupWithGitHubButton",
+        "errorMessage": "#loginFormErrorMessage"
+    },
+    "firebase": {
+        "apiKey": "AIzaSyCfltAjH4jFhJbn4wKmgTMIdt25rqkMEHE",
+        "authDomain": "ydits-accounts-927aa.firebaseapp.com",
+        "projectId": "ydits-accounts-927aa",
+        "storageBucket": "ydits-accounts-927aa.firebasestorage.app",
+        "messagingSenderId": "310063181312",
+        "appId": "1:310063181312:web:fa115c3adc417073b3b2e5",
+        "measurementId": "G-YEPZYDD54V"
+    }
+}

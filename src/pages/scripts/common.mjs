@@ -1,183 +1,203 @@
+import config from "./config.json" with { type: "json" };
+import { safecall } from "./libs/safecaller/safecaller.mjs";
+import { ConsoleManager } from "./libs/console-manager/console-manager.mjs";
+import { YditsAccountsClient } from "./ydits-accounts/client.mjs";
+import { ElementsManager } from "./libs/elements-manager/elements-manager.mjs";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCfltAjH4jFhJbn4wKmgTMIdt25rqkMEHE",
-    authDomain: "ydits-accounts-927aa.firebaseapp.com",
-    projectId: "ydits-accounts-927aa",
-    storageBucket: "ydits-accounts-927aa.firebasestorage.app",
-    messagingSenderId: "310063181312",
-    appId: "1:310063181312:web:fa115c3adc417073b3b2e5",
-    measurementId: "G-YEPZYDD54V",
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-
-(() => {
-    console.log(
-        "%cWARNING!\n%cUsing this console may allow attackers to impersonate you and steal your information using an attack called Self-XSS.Do not enter or paste code that you do not understand.",
-        "font-size: 32px; color: red; background-color: yellow;",
-        "font-size: 24px;"
-    );
-    console.log(
-        "%c警告!\n%cこのコンソールを使用すると、攻撃者があなたになりすまし、Self-XSSと呼ばれる攻撃を使ってあなたの情報を盗み出す可能性があります。理解できないコードを入力したり、貼り付けたり絶対にしないでください。",
-        "font-size: 32px; color: red; background-color: yellow;",
-        "font-size: 24px;"
-    );
-
-    let loginSubmitButtomElement;
-    let signupSubmitButtomElement;
-    let errorMessageElement;
-
-    document.addEventListener("DOMContentLoaded", () => initPage());
-
-    function initPage() {
-        console.log("Initializing page...");
-
-        loginSubmitButtomElement = document.getElementById("loginSubmitButton");
-        signupSubmitButtomElement =
-            document.getElementById("signupSubmitButton");
-        errorMessageElement = document.getElementById("loginFormErrorMessage");
-
-        try {
-            loginSubmitButtomElement.addEventListener("click", () =>
-                onClickLoginSubmitButton()
-            );
-        } catch (error) {
-            console.error(error);
+/**
+ * Authページの管理  
+ * YDITS Accounts Client の管理  
+ * Elements Manager の管理  
+ * イベントリスナーの管理  
+ */
+class AuthPage {
+    constructor() {
+        if (!(window?.document instanceof Document)) {
+            throw new TypeError("window.document is not instance of Document");
         }
 
-        try {
-            signupSubmitButtomElement.addEventListener("click", () =>
-                onClickSignupSubmitButton()
-            );
-        } catch (error) {
-            console.error(error);
-        }
-
-        console.log(
-            "%cWARNING!\n%cUsing this console may allow attackers to impersonate you and steal your information using an attack called Self-XSS.Do not enter or paste code that you do not understand.",
-            "font-size: 32px; color: red; background-color: yellow;",
-            "font-size: 24px; color: unset; backgroun-color: unset;"
-        );
-        console.log(
-            "%c警告!\n%cこのコンソールを使用すると、攻撃者があなたになりすまし、Self-XSSと呼ばれる攻撃を使ってあなたの情報を盗み出す可能性があります。理解できないコードを入力したり、貼り付けたり絶対にしないでください。",
-            "font-size: 32px; color: red; background-color: yellow;",
-            "font-size: 24px;"
-        );
+        this.#initializeConsoleManager();
+        this.#initializeElementsManager();
+        this.#initializeYditsAccountsClient();
+        this.#setupEventListeners();
     }
 
-    function onClickLoginSubmitButton() {
-        console.log("Clicked login button.");
 
-        errorMessage("");
+    /**
+     * Console Manager
+     * @type {ConsoleManager | null}
+     */
+    #consoleManager = null;
 
-        const loginFormEmailElement = document.getElementById("loginFormEmail");
-        const loginFormPasswordElement =
-            document.getElementById("loginFormPassword");
-        const email = loginFormEmailElement.value;
-        const password = loginFormPasswordElement.value;
 
-        if (email === "" || password === "") {
-            emptyForm();
-            return;
-        }
+    /**
+     * YDITS Accounts Client
+     * @type {YditsAccountsClient | null}
+     */
+    #yditsAccountsClient = null;
 
-        login(email, password);
+
+    /**
+     * Elements Manager
+     * @type {ElementsManager | null}
+     */
+    #elementsManager = null;
+
+
+    /**
+     * Console Manager をイニシャライズする
+     */
+    #initializeConsoleManager() {
+        this.#consoleManager = new ConsoleManager();
+        this.#consoleManager.showSelfXSSWarn();
     }
 
-    function onClickSignupSubmitButton() {
-        console.log("Clicked signup button.");
 
-        errorMessage("");
-
-        const loginFormEmailElement = document.getElementById("loginFormEmail");
-        const loginFormPasswordElement =
-            document.getElementById("loginFormPassword");
-        const email = loginFormEmailElement.value;
-        const password = loginFormPasswordElement.value;
-
-        if (email === "" || password === "") {
-            emptyForm();
-            return;
-        }
-
-        signup(email, password);
+    /**
+     * YDITS Account Client をイニシャライズする
+     * @returns {void}
+     */
+    #initializeYditsAccountsClient() {
+        this.#yditsAccountsClient = new YditsAccountsClient({
+            config: config.firebase,
+            onLoginError: () => this.#onLoginError(),
+        })
     }
 
-    function login(email, password) {
-        let user;
 
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                user = userCredential.user;
-                console.debug(user);
-            })
-            .catch((error) => {
-                console.error(error);
-                onLoginError(error.message);
-            });
-    }
-
-    function signup(email, password) {
-        let user;
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                user = userCredential.user;
-                console.debug(user);
-            })
-            .catch((error) => {
-                console.error(error);
-                onLoginError(error.message);
-            });
-    }
-
-    function emptyForm() {
-        errorMessage("Enter an email and a password");
-    }
-
-    function errorMessage(text) {
-        errorMessageElement.innerText = text;
-    }
-
-    function onLoginError(errorMessage) {
-        console.debug(errorMessage);
+    /**
+     * ログイン失敗時の処理
+     * @returns {void}
+     */
+    #onLoginError(errorMessage) {
+        const errorMessageElement = this.#elementsManager.getFromCache(config.elements.errorMessage);
 
         switch (errorMessage) {
             case "Firebase: Error (auth/invalid-email).":
-                errorMessageElement.innerText = "Invalid email";
+                this.#errorMessage("Invalid email");
                 break;
 
             case "Firebase: Error (auth/missing-password).":
-                errorMessageElement.innerText = "Missing password";
+                this.#errorMessage("Missing password");
                 break;
 
             case "Firebase: Error (auth/invalid-login-credentials).":
-                errorMessageElement.innerText = "Invalid login credentials";
+                this.#errorMessage("Invalid login credentials");
                 break;
 
             case "Firebase: Error (auth/email-already-in-use).":
-                errorMessageElement.innerText = "Email already in use";
+                this.#errorMessage("Email already in use");
                 break;
 
             case "Firebase: Password should be at least 6 characters (auth/weak-password).":
-                errorMessageElement.innerText =
-                    "Password should be at least 6 characters";
+                this.#errorMessage("Password should be at least 6 characters");
                 break;
 
             default:
-                errorMessageElement.innerText = "Unknown error";
+                this.#errorMessage("Unknown error");
                 break;
         }
     }
-})();
+
+
+    /**
+     * Elements Manager をイニシャライズする
+     * @returns {void}
+     */
+    #initializeElementsManager() {
+        this.#elementsManager = new ElementsManager();
+    }
+
+
+    /**
+     * イベントリスナーをセットアップする
+     * @returns {void}
+     */
+    #setupEventListeners() {
+        window.document.addEventListener("DOMContentLoaded", () => this.#initializePage());
+    }
+
+
+    /**
+     * ページをイニシャライズする
+     * @returns {void}
+     */
+    #initializePage() {
+        const loginSubmitButtonElement = this.#elementsManager.getFromCache(config.elements.loginSubmitButton);
+        const signupSubmitButtonElement = this.#elementsManager.getFromCache(config.elements.signupSubmitButton);
+        const signupWithGitHubButtonElement = this.#elementsManager.getFromCache(config.elements.signupWithGitHubButton);
+        this.#elementsManager.getFromCache(config.elements.errorMessage);
+
+        safecall(() => loginSubmitButtonElement.addEventListener("click", () => this.#onLoginSubmitButtonClick()));
+        safecall(() => signupSubmitButtonElement.addEventListener("click", () => this.#onSignupSubmitButtonClick()));
+        safecall(() => signupWithGitHubButtonElement.addEventListener("click", () => this.#onSignupWithGitHubButtonClick()));
+
+        this.#consoleManager.showSelfXSSWarn();
+    }
+
+
+    /**
+     * ログインボタンがクリックされたときの処理
+     * @returns {void}
+     */
+    #onLoginSubmitButtonClick() {
+        this.#errorMessage("");
+
+        const loginFormEmailElement = document.getElementById("loginFormEmail");
+        const loginFormPasswordElement =
+            document.getElementById("loginFormPassword");
+        const email = loginFormEmailElement.value;
+        const password = loginFormPasswordElement.value;
+
+        if (email === "" || password === "") {
+            this.#onFormEmpty();
+            return;
+        }
+
+        this.#yditsAccountsClient.login({ email, password });
+    }
+
+
+    /**
+     * サインアップボタンがクリックされたときの処理
+     * @returns {void}
+     */
+    #onSignupSubmitButtonClick() {
+        this.#errorMessage("");
+
+        const loginFormEmailElement = document.getElementById("loginFormEmail");
+        const loginFormPasswordElement =
+            document.getElementById("loginFormPassword");
+        const email = loginFormEmailElement.value;
+        const password = loginFormPasswordElement.value;
+
+        if (email === "" || password === "") {
+            this.#onFormEmpty();
+            return;
+        }
+
+        this.#yditsAccountsClient.signup({ email, password });
+    }
+
+
+    /**
+     * GitHubサインアップボタンがクリックされたときの処理
+     * @returns {void}
+     */
+    #onSignupWithGitHubButtonClick() {
+        this.#yditsAccountsClient.signupWithGitHub();
+    }
+
+
+    #onFormEmpty() {
+        this.#errorMessage("Enter an email and a password");
+    }
+
+
+    #errorMessage(text) {
+        this.#elementsManager.getFromCache(config.elements.errorMessage).innerText = text;
+    }
+}
+
+
+new AuthPage();
