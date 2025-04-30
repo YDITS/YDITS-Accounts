@@ -9,13 +9,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBHNOmPRFD-G3zj7h5jW7blRJ385EBETLg",
-    authDomain: "ydits-accounts.firebaseapp.com",
-    projectId: "ydits-accounts",
-    storageBucket: "ydits-accounts.appspot.com",
-    messagingSenderId: "680261956411",
-    appId: "1:680261956411:web:8c8e99dbab5dfa6d1cbd1e",
-    measurementId: "G-5KJC78542S",
+    apiKey: "AIzaSyCfltAjH4jFhJbn4wKmgTMIdt25rqkMEHE",
+    authDomain: "ydits-accounts-927aa.firebaseapp.com",
+    projectId: "ydits-accounts-927aa",
+    storageBucket: "ydits-accounts-927aa.firebasestorage.app",
+    messagingSenderId: "310063181312",
+    appId: "1:310063181312:web:fa115c3adc417073b3b2e5",
+    measurementId: "G-YEPZYDD54V",
 };
 
 const app = initializeApp(firebaseConfig);
