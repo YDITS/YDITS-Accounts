@@ -1,1 +1,2 @@
-/ /login/ 301
+/ /login/ 307
+/signin/* /login/:splat 308
