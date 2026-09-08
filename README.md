@@ -1,27 +1,21 @@
 # YDITS Accounts
 
-[→ 日本語](./README_JP.md)
+[日本語で読む >](./README_JP.md)
 
 ## Overview
 
-YDITS accounts website.
+The YDITS accounts website.
 
 Published at https://accounts.ydits.net/ .
 
 ## Usage
 
-1. Install
-
-```bash
-npm install firebase
-```
-
-2. Deploy
-
 Deploy directory `src/pages/`.
+
+Since it has a zero-build, no-framework, serverless architecture, it can be deployed in any way.
 
 ## License
 
-No licensed.
+This project is not licensed.
 
-Copyright &copy; よね/Yone
+Copyright © 2024-2026 よね/Yone

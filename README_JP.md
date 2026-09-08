@@ -1,6 +1,6 @@
 # YDITS Accounts
 
-[→ English](./README.md)
+[Read in English >](./README.md)
 
 ## 概要
 
@@ -10,18 +10,12 @@ https://accounts.ydits.net/ で公開しています。
 
 ## 利用方法
 
-1. インストール
+`src/pages/` ディレクトリをデプロイします。
 
-```bash
-npm install firebase
-```
-
-2. デプロイ
-
-Deploy directory `src/pages/`.
+ゼロビルド・ノーフレームワーク・サーバーレス構成のため、どのような方法でもデプロイできます。
 
 ## ライセンス
 
-ライセンスなし。
+このプロジェクトはライセンスされません。
 
-Copyright &copy; よね/Yone
+Copyright © 2024-2026 よね/Yone
