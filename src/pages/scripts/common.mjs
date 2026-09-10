@@ -1,3 +1,13 @@
+/*!
+ *
+ * YDITS Accounts
+ *
+ * Copyright (C) 2024-2026 よね/Yone
+ *
+ * https://github.com/YDITS/YDITS-Accounts
+ *
+ */
+
 import config from "./config.json" with { type: "json" };
 import { safecall } from "./libs/safecaller/safecaller.mjs";
 import { ConsoleManager } from "./libs/console-manager/console-manager.mjs";
@@ -5,10 +15,10 @@ import { YditsAccountsClient } from "./ydits-accounts/client.mjs";
 import { ElementsManager } from "./libs/elements-manager/elements-manager.mjs";
 
 /**
- * Authページの管理  
- * YDITS Accounts Client の管理  
- * Elements Manager の管理  
- * イベントリスナーの管理  
+ * Authページの管理
+ * YDITS Accounts Client の管理
+ * Elements Manager の管理
+ * イベントリスナーの管理
  */
 class AuthPage {
     constructor() {

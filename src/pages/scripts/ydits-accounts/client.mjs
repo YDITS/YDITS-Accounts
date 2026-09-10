@@ -1,10 +1,20 @@
+/*!
+ *
+ * YDITS Accounts
+ *
+ * Copyright (C) 2024-2026 よね/Yone
+ *
+ * https://github.com/YDITS/YDITS-Accounts
+ *
+ */
+
 import { FirebaseCore } from "../libs/firebase/firebase-core.mjs";
 import { FirebaseConfig } from "../libs/firebase/firebase-config.mjs";
 import { ConsoleManager } from "../libs/console-manager/console-manager.mjs";
 
 /**
- * YDITS Account のクライアント管理  
- * Firebase の管理  
+ * YDITS Account のクライアント管理
+ * Firebase の管理
  */
 export class YditsAccountsClient {
     /**
@@ -60,7 +70,7 @@ export class YditsAccountsClient {
      * @param {{
      *     config: {},
      *     onLoginError: Function,
-     * }} 
+     * }}
      */
     constructor({
         config,
