@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/styles/common.css">
+    <link rel="stylesheet" href="./styles/common.css">
 
     <!-- Scripts -->
     <script src="/scripts/common.mjs" type="module"></script>
@@ -57,39 +57,45 @@
 
 <body>
     <main class="auth-page">
-        <h1 class="page-title auth-page-title">YDITS Account</h1>
+        <h1 class="auth-page__title">YDITS Account</h1>
 
         <form id="loginForm" class="auth-form" action="">
-            <h2 for="loginForm" class="form-title">Login</h2>
+            <h2 for="loginForm" class="auth-form__title">Login</h2>
 
-            <div class="form-item">
-                <label for="loginFormEmail" class="form-label">Email</label>
-                <input id="loginFormEmail" class="form-input" type="email" placeholder="Email" required />
+            <div class="auth-form__item">
+                <label for="loginFormEmail" class="auth-form__label">Email</label>
+                <input id="loginFormEmail" class="auth-form__input" type="email" required>
             </div>
 
-            <div class="form-item">
-                <label for="loginFormPassword" class="form-label">Password</label>
-                <input id="loginFormPassword" class="form-input" type="password" placeholder="Password" required />
+            <div class="auth-form__item">
+                <label for="loginFormPassword" class="auth-form__label">Password</label>
+                <input id="loginFormPassword" class="auth-form__input" type="password" required>
             </div>
 
-            <span id="loginFormErrorMessage" class="form-item form-error"></span>
+            <span id="loginFormErrorMessage" class="auth-form__item auth-form__error"></span>
 
-            <div class="form-item">
-                <button id="loginSubmitButton" class="button form-submit-button auth-submit-button" type="button">
+            <div class="auth-form__item">
+                <button id="loginSubmitButton" class="button auth-form__submit-button" type="button">
                     Login
                 </button>
             </div>
 
-            <a href="/signup" class="link">Create account</a>
+            <div>
+                <p>
+                    Don't have an account?
+                    <a href="/signup" class="link">Create an account</a>
+                </p>
+            </div>
         </form>
 
-        <div class="policies">
-            <ul style="list-style: none">
-                <li>
-                    <a href="https://policies.ydits.net/">Policy</a>
-                </li>
-            </ul>
-        </div>
+        <footer>
+            <a href="https://policies.ydits.net/" class="link policies__link">Terms and Policies</a>
+            <div>
+                <span>
+                    © よね/Yone
+                </span>
+            </div>
+        </footer>
     </main>
 </body>
 
