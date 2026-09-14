@@ -1,5 +1,9 @@
 / /login 307
+/log-in /login 308
+/registration /signup 308
 /signin /login 308
+/sign-in /login 308
+/sign-up /signup 308
 
 /login/ /login 308
 /signup/ /signup 308
