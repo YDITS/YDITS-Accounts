@@ -1,4 +1,4 @@
-{
+export default {
     "elements": {
         "loginSubmitButton": "#loginSubmitButton",
         "signupSubmitButton": "#signupSubmitButton",

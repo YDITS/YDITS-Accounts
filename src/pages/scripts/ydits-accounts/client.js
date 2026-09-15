@@ -8,9 +8,9 @@
  *
  */
 
-import { FirebaseCore } from "../libs/firebase/firebase-core.mjs";
-import { FirebaseConfig } from "../libs/firebase/firebase-config.mjs";
-import { ConsoleManager } from "../libs/console-manager/console-manager.mjs";
+import { FirebaseCore } from "../libs/firebase/firebase-core.js";
+import { FirebaseConfig } from "../libs/firebase/firebase-config.js";
+import { ConsoleManager } from "../libs/console-manager/console-manager.js";
 
 /**
  * YDITS Account のクライアント管理

@@ -18,7 +18,7 @@ import {
     onAuthStateChanged,
     GithubAuthProvider,
 } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { FirebaseConfig } from "./firebase-config.mjs";
+import { FirebaseConfig } from "./firebase-config.js";
 
 export class FirebaseCore {
     /**

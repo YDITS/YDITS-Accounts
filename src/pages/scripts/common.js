@@ -8,11 +8,11 @@
  *
  */
 
-import config from "./config.json" with { type: "json" };
-import { safecall } from "./libs/safecaller/safecaller.mjs";
-import { ConsoleManager } from "./libs/console-manager/console-manager.mjs";
-import { YditsAccountsClient } from "./ydits-accounts/client.mjs";
-import { ElementsManager } from "./libs/elements-manager/elements-manager.mjs";
+import config from "./config.js";
+import { safecall } from "./libs/safecaller/safecaller.js";
+import { ConsoleManager } from "./libs/console-manager/console-manager.js";
+import { YditsAccountsClient } from "./ydits-accounts/client.js";
+import { ElementsManager } from "./libs/elements-manager/elements-manager.js";
 
 /**
  * Authページの管理
