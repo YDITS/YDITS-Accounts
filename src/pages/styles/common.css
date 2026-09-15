@@ -76,8 +76,10 @@ ol {
     color: #0076bd;
     /* color: #5ebd00; */
 
-    &:hover {
-        text-decoration: underline;
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
@@ -150,8 +152,10 @@ ol {
     color: #ffffffff;
     cursor: pointer;
 
-    &:hover {
-        background-color: hsl(208, 100%, 37%);
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: hsl(208, 100%, 37%);
+        }
     }
 
     &:active {
