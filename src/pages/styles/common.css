@@ -23,9 +23,19 @@ html {
 body {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-size: var(--font-size);
     font-family: var(--font-family);
     color: var(--color);
+
+    width: 100%;
+    height: max(100lvh, fit-content);
+    padding: 4rem 1rem 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    background-color: #efefef;
 
     * {
         margin: 0;
@@ -75,13 +85,10 @@ ol {
 
 .auth-page {
     width: 100%;
-    height: 100lvh;
-    padding: 4rem 1rem 2rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    background-color: #efefef;
 }
 
 .auth-page__title {
