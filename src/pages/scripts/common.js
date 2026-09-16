@@ -9,7 +9,6 @@
  */
 
 import config from "./config.js";
-import { safecall } from "./libs/safecaller/safecaller.js";
 import { ConsoleManager } from "./libs/console-manager/console-manager.js";
 import { YditsAccountsClient } from "./ydits-accounts/client.js";
 import { ElementsManager } from "./libs/elements-manager/elements-manager.js";
@@ -21,112 +20,101 @@ import { ElementsManager } from "./libs/elements-manager/elements-manager.js";
  * イベントリスナーの管理
  */
 class AuthPage {
-    constructor() {
-        if (!(window?.document instanceof Document)) {
-            throw new TypeError("window.document is not instance of Document");
-        }
-
-        this.#initializeConsoleManager();
-        this.#initializeElementsManager();
-        this.#initializeYditsAccountsClient();
-        this.#setupEventListeners();
-    }
-
-
     /**
      * Console Manager
-     * @type {ConsoleManager | null}
+     * @type {ConsoleManager}
      */
-    #consoleManager = null;
-
-
-    /**
-     * YDITS Accounts Client
-     * @type {YditsAccountsClient | null}
-     */
-    #yditsAccountsClient = null;
-
+    #consoleManager;
 
     /**
      * Elements Manager
-     * @type {ElementsManager | null}
-     */
-    #elementsManager = null;
+     * @type {ElementsManager}
+    */
+    #elementsManager;
 
+    /**
+     * YDITS Accounts Client
+     * @type {YditsAccountsClient}
+     */
+    #yditsAccountsClient;
+
+    constructor() {
+        if (!(document instanceof Document)) {
+            throw new TypeError("window.document is not instance of Document");
+        }
+
+        this.#consoleManager = this.#initializeConsoleManager();
+        this.#elementsManager = this.#initializeElementsManager();
+        this.#yditsAccountsClient = this.#initializeYditsAccountsClient();
+        this.#initializePage();
+    }
 
     /**
      * Console Manager をイニシャライズする
+     * @returns {ConsoleManager}
      */
     #initializeConsoleManager() {
-        this.#consoleManager = new ConsoleManager();
-        this.#consoleManager.showSelfXSSWarn();
+        const consoleManager = new ConsoleManager();
+        consoleManager.showSelfXSSWarn();
+        return consoleManager;
     }
-
-
-    /**
-     * YDITS Account Client をイニシャライズする
-     * @returns {void}
-     */
-    #initializeYditsAccountsClient() {
-        this.#yditsAccountsClient = new YditsAccountsClient({
-            config: config.firebase,
-            onLoginError: () => this.#onLoginError(),
-        })
-    }
-
-
-    /**
-     * ログイン失敗時の処理
-     * @returns {void}
-     */
-    #onLoginError(errorMessage) {
-        const errorMessageElement = this.#elementsManager.getFromCache(config.elements.errorMessage);
-
-        switch (errorMessage) {
-            case "Firebase: Error (auth/invalid-email).":
-                this.#errorMessage("Invalid email");
-                break;
-
-            case "Firebase: Error (auth/missing-password).":
-                this.#errorMessage("Missing password");
-                break;
-
-            case "Firebase: Error (auth/invalid-login-credentials).":
-                this.#errorMessage("Invalid login credentials");
-                break;
-
-            case "Firebase: Error (auth/email-already-in-use).":
-                this.#errorMessage("Email already in use");
-                break;
-
-            case "Firebase: Password should be at least 6 characters (auth/weak-password).":
-                this.#errorMessage("Password should be at least 6 characters");
-                break;
-
-            default:
-                this.#errorMessage("Unknown error");
-                break;
-        }
-    }
-
 
     /**
      * Elements Manager をイニシャライズする
-     * @returns {void}
+     * @returns {ElementsManager}
      */
     #initializeElementsManager() {
-        this.#elementsManager = new ElementsManager();
+        return new ElementsManager();
     }
-
 
     /**
-     * イベントリスナーをセットアップする
-     * @returns {void}
+     * YDITS Account Client をイニシャライズする
+     * @returns {YditsAccountsClient}
      */
-    #setupEventListeners() {
-        window.document.addEventListener("DOMContentLoaded", () => this.#initializePage());
+    #initializeYditsAccountsClient() {
+        return new YditsAccountsClient({
+            config: config.firebase,
+            onLoginError: (errorMessage) => this.#onLoginError(errorMessage),
+        })
     }
 
+    /**
+     * ログイン失敗時の処理
+     * @param {string} errorMessage
+     * @returns {void}
+     */
+    #onLoginError(errorMessage) {
+        console.debug(errorMessage);
+        switch (errorMessage) {
+            case "Firebase: Error (auth/invalid-email).":
+                this.#showErrorMessage("Invalid email");
+                break;
+
+            case "Firebase: Error (auth/missing-password).":
+                this.#showErrorMessage("Missing password");
+                break;
+
+            case "Firebase: Error (auth/invalid-login-credentials).":
+                this.#showErrorMessage("Invalid login credentials");
+                break;
+
+            case "Firebase: Error (auth/invalid-credential).":
+                this.#showErrorMessage("Invalid credentials");
+                break;
+
+            case "Firebase: Error (auth/email-already-in-use).":
+                this.#showErrorMessage("Email already in use");
+                break;
+
+            case "Firebase: Password should be at least 6 characters (auth/weak-password).":
+                this.#showErrorMessage("Password should be at least 6 characters");
+                break;
+
+            default:
+                this.#showErrorMessage("Unknown error");
+                break;
+        }
+    }
 
     /**
      * ページをイニシャライズする
@@ -138,20 +126,23 @@ class AuthPage {
         const signupWithGitHubButtonElement = this.#elementsManager.getFromCache(config.elements.signupWithGitHubButton);
         this.#elementsManager.getFromCache(config.elements.errorMessage);
 
-        safecall(() => loginSubmitButtonElement.addEventListener("click", () => this.#onLoginSubmitButtonClick()));
-        safecall(() => signupSubmitButtonElement.addEventListener("click", () => this.#onSignupSubmitButtonClick()));
-        safecall(() => signupWithGitHubButtonElement.addEventListener("click", () => this.#onSignupWithGitHubButtonClick()));
+        loginSubmitButtonElement instanceof HTMLElement && (
+            loginSubmitButtonElement.addEventListener("click", () => this.#onLoginSubmitButtonClick())
+        );
+
+        signupSubmitButtonElement instanceof HTMLElement && (
+            signupSubmitButtonElement.addEventListener("click", () => this.#onSignupSubmitButtonClick())
+        );
 
         this.#consoleManager.showSelfXSSWarn();
     }
-
 
     /**
      * ログインボタンがクリックされたときの処理
      * @returns {void}
      */
     #onLoginSubmitButtonClick() {
-        this.#errorMessage("");
+        this.#showErrorMessage("");
 
         const loginFormEmailElement = document.getElementById("loginFormEmail");
         const loginFormPasswordElement =
@@ -167,13 +158,12 @@ class AuthPage {
         this.#yditsAccountsClient.login({ email, password });
     }
 
-
     /**
      * サインアップボタンがクリックされたときの処理
      * @returns {void}
      */
     #onSignupSubmitButtonClick() {
-        this.#errorMessage("");
+        this.#showErrorMessage("");
 
         const loginFormEmailElement = document.getElementById("loginFormEmail");
         const loginFormPasswordElement =
@@ -189,25 +179,21 @@ class AuthPage {
         this.#yditsAccountsClient.signup({ email, password });
     }
 
-
     /**
-     * GitHubサインアップボタンがクリックされたときの処理
+     * フォームが入力されていないときの処理
      * @returns {void}
      */
-    #onSignupWithGitHubButtonClick() {
-        this.#yditsAccountsClient.signupWithGitHub();
-    }
-
-
     #onFormEmpty() {
-        this.#errorMessage("Enter an email and a password");
+        this.#showErrorMessage("Enter an email and a password");
     }
 
-
-    #errorMessage(text) {
-        this.#elementsManager.getFromCache(config.elements.errorMessage).innerText = text;
+    /**
+     * @param {string} text
+     */
+    #showErrorMessage(text) {
+        const $errorMessage = this.#elementsManager.getFromCache(config.elements.errorMessage);
+        $errorMessage instanceof HTMLElement && ($errorMessage.innerText = text);
     }
 }
-
 
 new AuthPage();

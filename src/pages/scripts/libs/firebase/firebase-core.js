@@ -21,6 +21,38 @@ import {
 import { FirebaseConfig } from "./firebase-config.js";
 
 export class FirebaseCore {
+    get app() {
+        return this.#app;
+    }
+
+    /**
+     * @type {*}
+     */
+    #app = null;
+
+    get auth() {
+        return this.#auth;
+    }
+
+    /**
+     * @type {*}
+     */
+    #auth = null;
+
+    get githubAuthProvider() {
+        return this.#githubAuthProvider;
+    }
+
+    /**
+     * @type {*}
+     */
+    #githubAuthProvider = null;
+
+    /**
+     * @type {*}
+     */
+    #analytics = null;
+
     /**
      * @param {FirebaseConfig} config
      */
@@ -36,25 +68,17 @@ export class FirebaseCore {
         this.initializeApp(config.config);
     }
 
-
-    get app() {
-        return this.#app;
-    }
-
-
-    get auth() {
-        return this.#auth;
-    }
-
-
-    get githubAuthProvider() {
-        return this.#githubAuthProvider;
-    }
-
-
     /**
      * Firebase アプリをイニシャライズする
-     * @param {{}} config
+     * @param {{
+     *    apiKey: string,
+    *     authDomain: string,
+    *     projectId: string,
+    *     storageBucket: string,
+    *     messagingSenderId: string,
+    *     appId: string,
+    *     measurementId: string,
+    * } | null} config
      * @returns {void}
      */
     initializeApp(config) {
@@ -73,28 +97,4 @@ export class FirebaseCore {
         this.signInWithEmailAndPassword = signInWithEmailAndPassword;
         this.signInWithPopup = signInWithPopup;
     }
-
-
-    /**
-     * @type {*}
-     */
-    #app = null;
-
-
-    /**
-     * @type {*}
-     */
-    #analytics = null;
-
-
-    /**
-     * @type {*}
-     */
-    #auth = null;
-
-
-    /**
-     * @type {*}
-     */
-    #githubAuthProvider = null;
 }

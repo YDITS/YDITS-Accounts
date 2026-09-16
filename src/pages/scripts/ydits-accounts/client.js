@@ -19,17 +19,15 @@ import { ConsoleManager } from "../libs/console-manager/console-manager.js";
 export class YditsAccountsClient {
     /**
      * コールバック関数
-     * @type {{ onLoginError: Function }}
+     * @type {{ onLoginError: (errorMessage: string) => void }}
      */
-    #callbacks = {};
-
+    #callbacks;
 
     /**
      * Firebase
-     * @type {FirebaseCore | null}}
+     * @type {FirebaseCore}
      */
-    #firebase = null;
-
+    #firebase;
 
     /**
      * Console Manager
@@ -37,39 +35,10 @@ export class YditsAccountsClient {
      */
     #consoleManager = null;
 
-
-    /**
-     * Firebase をイニシャライズする
-     * @param {{}} config
-     * @returns {void}
-     */
-    #initializeFirebase(config) {
-        const _config = new FirebaseConfig(config)
-        this.#firebase = new FirebaseCore(_config);
-    }
-
-
-    /**
-     * Console Manager をイニシャライズする
-     */
-    #initializeConsoleManager() {
-        this.#consoleManager = new ConsoleManager();
-    }
-
-
-    /**
-     * ログインエラー時の処理
-     * @param {string} errorMessage
-     */
-    #onLoginError(errorMessage) {
-        this.#callbacks.onLoginError(errorMessage);
-    }
-
-
     /**
      * @param {{
      *     config: {},
-     *     onLoginError: Function,
+     *     onLoginError: (errorMessage: string) => void,
      * }}
      */
     constructor({
@@ -77,10 +46,9 @@ export class YditsAccountsClient {
         onLoginError,
     }) {
         this.#callbacks = { onLoginError };
-        this.#initializeConsoleManager();
-        this.#initializeFirebase(config);
+        this.#consoleManager = this.#initializeConsoleManager();
+        this.#firebase = this.#initializeFirebase(config);
     }
-
 
     /**
      * ログインする
@@ -88,21 +56,22 @@ export class YditsAccountsClient {
      *     email: string,
      *     password: string,
      * }}
+     * @returns {void}
      */
     login({ email, password }) {
         let user;
 
-        this.#firebase.signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
+
+        this.#firebase.signInWithEmailAndPassword(this.#firebase.auth, email, password)
+            .then((/** @type {unknown} */ userCredential) => {
                 user = userCredential.user;
                 console.debug(user);
             })
-            .catch((error) => {
+            .catch((/** @type {unknown} */ error) => {
                 console.error(error);
-                this.#onLoginError(error.message);
+                this.#onLoginError(error instanceof Error ? error.message : String(error));
             });
     }
-
 
     /**
      * サインアップする
@@ -110,42 +79,46 @@ export class YditsAccountsClient {
      *     email: string,
      *     password: string,
      * }}
+     * @returns {void}
      */
     signup({ email, password }) {
         let user;
 
         this.#firebase.createUserWithEmailAndPassword(this.#firebase.auth, email, password)
-            .then((userCredential) => {
+            .then((/** @type {unknown} */ userCredential) => {
                 user = userCredential.user;
                 console.debug(user);
             })
-            .catch((error) => {
+            .catch((/** @type {unknown} */ error) => {
                 console.error(error);
-                this.#onLoginError(error.message);
+                this.#onLoginError(error instanceof Error ? error.message : String(error));
             });
     }
 
+    /**
+     * Firebase をイニシャライズする
+     * @param {any} config
+     * @returns {FirebaseCore}
+     */
+    #initializeFirebase(config) {
+        const _config = new FirebaseConfig(config)
+        return new FirebaseCore(_config);
+    }
 
-    singupWithGitHub() {
-        this.#firebase.signInWithPopup(this.#firebase.auth, this.#firebase.githubAuthProvider)
-            .then((result) => {
-                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-                const credential = this.#firebase.githubAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+    /**
+     * Console Manager をイニシャライズする
+     * @returns {ConsoleManager}
+     */
+    #initializeConsoleManager() {
+        return new ConsoleManager();
+    }
 
-                // The signed-in user info.
-                const user = result.user;
-                // IdP data available using getAdditionalUserInfo(result)
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential = this.#firebase.githubAuthProvider.credentialFromError(error);
-                // ...
-            });
+    /**
+     * ログインエラー時の処理
+     * @param {string} errorMessage
+     * @returns {void}
+     */
+    #onLoginError(errorMessage) {
+        this.#callbacks.onLoginError(errorMessage);
     }
 }

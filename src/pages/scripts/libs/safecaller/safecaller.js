@@ -17,6 +17,6 @@ export async function safecall(callback, ...params) {
     try {
         await callback(params);
     } catch (error) {
-        console.warn(error.stack);
+        console.warn(error);
     }
 }

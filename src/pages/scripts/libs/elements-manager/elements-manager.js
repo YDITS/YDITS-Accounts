@@ -9,9 +9,6 @@
  */
 
 export class ElementsManager {
-    constructor() { }
-
-
     /**
      * キャッシュされた Elements
      */
@@ -19,32 +16,29 @@ export class ElementsManager {
         return this.#elements;
     }
 
-
     /**
      * Element を取得する
      * キャッシュを使用せずに新しく取得します。
-     * @param {*} selectors
-     * @returns {NodeListOf<any> | HTMLElement}
+     * @param {string} selector
+     * @returns {Element | undefined}
      */
-    get(selectors) {
-        const element = document.querySelectorAll(selectors);
+    get(selector) {
+        const element = document.querySelectorAll(selector);
 
-        if (element.length === 1) {
-            this.#elements[selectors] = element[0];
+        if (element[0] instanceof HTMLElement) {
+            this.#elements[selector] = element[0];
             return element[0];
         }
 
-        this.#elements[selectors] = element;
-        return element;
+        return undefined;
     }
-
 
     /**
      * Element を取得する
      * キャッシュを使用して取得します。
      * キャッシュがないときは新しく取得します。
-     * @param {*} selectors
-     * @returns {NodeListOf<any> | HTMLElement}
+     * @param {string} selector
+     * @returns {Element | undefined}
      */
     getFromCache(selector) {
         let element = this.#elements[selector];
@@ -56,9 +50,8 @@ export class ElementsManager {
         return element;
     }
 
-
     /**
-     * @type {{ query: NodeListOf<any> | HTMLElement }}
+     * @type {Record<string, Element | undefined>}
      */
     #elements = {};
 }

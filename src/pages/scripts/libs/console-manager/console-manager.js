@@ -9,18 +9,13 @@
  */
 
 export class ConsoleManager {
-    constructor() {
-        if (typeof window?.console !== "object") {
-            throw new TypeError("window.console is not a object.");
-        }
-
-        this.#console = window?.console;
-    }
-
-
     /**
      * @type {{
-     *     language: {
+     *     en: {
+     *         title: string,
+     *         body: string,
+     *     },
+     *     ja: {
      *         title: string,
      *         body: string,
      *     },
@@ -37,23 +32,16 @@ export class ConsoleManager {
         },
     }
 
-
     static selfXSSWarnStyles = {
         title: "font-size: 32px; color: red; background-color: yellow;",
         body: "font-size: 24px;",
     }
 
-
-    get console() {
-        return this.#console;
+    constructor() {
+        if (typeof console !== "object") {
+            throw new TypeError("window.console is not a object.");
+        }
     }
-
-
-    /**
-     * @type {window.console | null}
-     */
-    #console = null;
-
 
     /**
      * @returns {void}

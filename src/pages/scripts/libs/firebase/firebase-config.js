@@ -10,6 +10,19 @@
 
 export class FirebaseConfig {
     /**
+     * @type {{
+     *    apiKey: string,
+    *     authDomain: string,
+    *     projectId: string,
+    *     storageBucket: string,
+    *     messagingSenderId: string,
+    *     appId: string,
+    *     measurementId: string,
+    * } | null}
+     */
+    config = null;
+
+    /**
      * @param {{
      *     apiKey: string,
      *     authDomain: string,
@@ -51,18 +64,4 @@ export class FirebaseConfig {
 
         this.config = config;
     }
-
-
-    /**
-     * @type {{
-     *     apiKey: string,
-    *     authDomain: string,
-    *     projectId: string,
-    *     storageBucket: string,
-    *     messagingSenderId: string,
-    *     appId: string,
-    *     measurementId: string,
-    * } | null}
-     */
-    config = null;
 }
