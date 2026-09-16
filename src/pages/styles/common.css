@@ -14,28 +14,24 @@
     --font-family: "Local Noto Sans JP", "Noto Sans JP", sans-serif;
     --font-size: 16px;
     --color: #333;
-}
 
-html {
     font-size: var(--font-size);
 }
 
 body {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
-    font-size: var(--font-size);
-    font-family: var(--font-family);
-    color: var(--color);
-
     width: 100%;
-    height: max(100lvh, fit-content);
-    padding: 4rem 1rem 2rem 1rem;
+    min-height: 100lvh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 4rem 1rem 2rem 1rem;
     gap: 2rem;
     background-color: #efefef;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--color);
 
     * {
         margin: 0;
@@ -45,6 +41,7 @@ body {
 }
 
 footer {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,12 +54,12 @@ h3,
 h4,
 h5,
 h6 {
-    font-size: unset;
-    font-weight: unset;
+    font-size: inherit;
+    font-weight: inherit;
 }
 
 a {
-    text-decoration: unset;
+    text-decoration: none;
 }
 
 ul,
@@ -102,7 +99,8 @@ ol {
 /* auth-form */
 
 .auth-form {
-    width: min(100%, 32rem);
+    width: 100%;
+    max-width: 32rem;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -124,10 +122,6 @@ ol {
     gap: 1rem;
 }
 
-.auth-form__label {
-    display: block;
-}
-
 .auth-form__input {
     width: 100%;
     border: 2px solid #efefef;
@@ -142,8 +136,6 @@ ol {
 }
 
 .auth-form__submit-button {
-    width: 100%;
-    display: block;
     border: none;
     border-radius: 0.5rem;
     padding: 0.75rem 1.5rem;
