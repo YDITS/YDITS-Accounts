@@ -12,31 +12,49 @@
 
 :root {
     --font-family: "Local Noto Sans JP", "Noto Sans JP", sans-serif;
-    --font-size: 16px;
-    --color: #333;
+    --font-size: 100%;
+    --primary-bgcolor: hsl(0 0% 100%);
+    --primary-color: hsl(208 100% 42%);
+    --primary-color-dim: hsl(from var(--primary-color) h s calc(l - 12));
+    --secondary-color: hsl(90 100% 37%);
+    --error-color: hsl(0 85% 60%);
+    --color: hsl(0 0% 20%);
 
+    scroll-behavior: smooth;
+    font-family: var(--font-family);
     font-size: var(--font-size);
+    line-height: 1.5;
+    color: var(--color);
+
+    @media (prefers-reduced-motion: reduce) {
+        scroll-behavior: revert;
+    }
 }
 
 body {
     margin: 0;
     box-sizing: border-box;
-    width: 100%;
     min-height: 100lvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem 1rem 2rem 1rem;
+    padding: 4rem 1rem 2rem;
     gap: 2rem;
-    background-color: #efefef;
-    font-family: var(--font-family);
-    font-size: var(--font-size);
-    color: var(--color);
+    background-color: hsl(from var(--primary-bgcolor) h s calc(l - 6));
 
-    * {
+    *,
+    *::before,
+    *::after {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font: inherit;
+
+        &:focus-visible {
+            /* outline: 0.25rem solid orange; */
+            outline: 0.25rem solid var(--primary-color);
+            outline-offset: 0.25rem;
+        }
     }
 }
 
@@ -46,16 +64,6 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: inherit;
-    font-weight: inherit;
 }
 
 a {
@@ -70,8 +78,7 @@ ol {
 /* link */
 
 .link {
-    color: #0076bd;
-    /* color: #5ebd00; */
+    color: var(--primary-color);
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
@@ -107,7 +114,7 @@ ol {
     align-items: center;
     padding: 2rem;
     gap: 1.5rem;
-    background-color: #ffffff;
+    background-color: var(--primary-bgcolor);
 }
 
 .auth-form__title {
@@ -124,33 +131,41 @@ ol {
 
 .auth-form__input {
     width: 100%;
-    border: 2px solid #efefef;
+    border: 2px solid hsl(0 0% 88%);
     border-radius: 0.25rem;
     padding: 0.5em;
     font-size: 1.2rem;
+    line-height: 1;
+
+    &:focus {
+        outline: 0.25rem solid orange;
+        outline-offset: 0.25rem;
+    }
 }
 
 .auth-form__error {
-    color: #f04040ff;
+    color: var(--error-color);
     text-align: center;
 }
 
 .auth-form__submit-button {
     border: none;
     border-radius: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background-color: hsl(208, 100%, 42%);
+    padding: 0.9rem 1.5rem;
+    background-color: var(--primary-color);
     font-size: 1.1rem;
-    color: #ffffffff;
+    line-height: 1;
+    color: hsl(0 0% 100%);
     cursor: pointer;
+    user-select: none;
 
     @media (hover: hover) and (pointer: fine) {
         &:hover {
-            background-color: hsl(208, 100%, 37%);
+            background-color: hsl(from var(--primary-color) h s calc(l - 6));
         }
     }
 
     &:active {
-        background-color: hsl(208, 100%, 31%);
+        background-color: var(--primary-color-dim);
     }
 }
