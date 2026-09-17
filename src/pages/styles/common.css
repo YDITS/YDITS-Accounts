@@ -120,6 +120,7 @@ a {
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
+    word-break: keep-all;
 }
 
 /* auth-form */
@@ -139,6 +140,7 @@ a {
 .auth-form__title {
     width: 100%;
     font-size: 1.5rem;
+    word-break: keep-all;
 }
 
 .auth-form__item {
