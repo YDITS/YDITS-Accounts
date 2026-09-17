@@ -19,7 +19,7 @@
 
     --primary-color: hsl(208 100% 42%);
     --primary-color-dim: hsl(from var(--primary-color) h s calc(l - 12));
-    --primary-color: hsl(150 50% 50%);
+    --secondary-color: hsl(150 50% 50%);
     --secondary-color-dim: hsl(from var(--secondary-color) h s calc(l - 12));
     --background-color: hsl(0 0% 100%);
     --text-color: hsl(0 0% 25%);
@@ -51,8 +51,8 @@
     font: inherit;
 
     &:focus-visible {
-        outline: 2px solid var(--focus-color);
-        outline-offset: 2px;
+        outline: 4px solid var(--focus-color);
+        outline-offset: 4px;
     }
 }
 
@@ -157,8 +157,8 @@ a {
     line-height: 1;
 
     &:focus {
-        outline: 2px solid var(--focus-color);
-        outline-offset: 2px;
+        outline: 4px solid var(--focus-color);
+        outline-offset: 4px;
     }
 }
 
