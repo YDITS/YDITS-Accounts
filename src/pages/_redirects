@@ -1,9 +1,17 @@
+# URL structure normalization (URL variants; Non-legacy)
+
 / /login 307
 /log-in /login 308
+/sign-up /signup 308
 /registration /signup 308
+/logon /login 308
+/log-on /login 308
 /signin /login 308
 /sign-in /login 308
-/sign-up /signup 308
+/signon /login 308
+/sign-on /login 308
+
+# URL structure migration (Legacy URLs)
 
 /login/ /login 308
 /signup/ /signup 308
