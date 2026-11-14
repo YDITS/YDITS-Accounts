@@ -13,6 +13,7 @@
 :root {
     --max-width-large: 64rem;
     --max-width-medium: 48rem;
+    --max-width-small: 32rem;
     --font-family:
         "Local Noto Sans",
         "Local Noto Sans CJK",
